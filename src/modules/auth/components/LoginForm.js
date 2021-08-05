@@ -5,9 +5,9 @@ import { useFormik } from "formik";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link as LinkRDom, useHistory } from "react-router-dom";
-import { register } from "../../../actions/auth";
+import { login } from "../../../actions/auth";
 import ButtonProgress from "../../../components/buuton/ButtonProgress";
-import { registerUserSchema } from "../validations/registerValidation";
+import { loginUserSchema } from "../validations/loginValidations";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -43,39 +43,20 @@ export default function RegisterForm() {
       rpassword: "",
     },
     onSubmit: (values, { setErrors }) => {
-      dispatch(register(values, setLoading, history, setErrors));
+      dispatch(login(values, setLoading, history, setErrors));
     },
-    validationSchema: registerUserSchema,
+    validationSchema: loginUserSchema,
   });
-
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5">
-        Sign up
+        Sign in
       </Typography>
       <form onSubmit={formik.handleSubmit} className={classes.form} noValidate>
         <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <TextField
-              autoComplete="name"
-              name="name"
-              variant="outlined"
-              required
-              fullWidth
-              label="Name"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={!!(formik.touched.name && formik.errors.name)}
-              helperText={
-                formik.touched.name && formik.errors.name
-                  ? formik.errors.name
-                  : ""
-              }
-            />
-          </Grid>
           <Grid item xs={12}>
             <TextField
               variant="outlined"
@@ -112,24 +93,6 @@ export default function RegisterForm() {
               }
             />
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              variant="outlined"
-              required
-              fullWidth
-              name="rpassword"
-              label="Repeate Password"
-              type="password"
-              onChange={formik.handleChange}
-              onBlur={formik.handleBlur}
-              error={!!(formik.touched.rpassword && formik.errors.rpassword)}
-              helperText={
-                formik.touched.rpassword && formik.errors.rpassword
-                  ? formik.errors.rpassword
-                  : ""
-              }
-            />
-          </Grid>
         </Grid>
         <ButtonProgress
           type="submit"
@@ -137,14 +100,14 @@ export default function RegisterForm() {
           variant="contained"
           color="primary"
           className={classes.submit}
-          label="Sign Up"
+          label="Sign In"
           loading={loading}
         />
 
         <Grid container justifyContent="flex-end">
           <Grid item>
-            <Link component={LinkRDom} to="/login" variant="body2">
-              Already have an account? Sign in
+            <Link component={LinkRDom} to="/register" variant="body2">
+              Don't have an account? Sign Up
             </Link>
           </Grid>
         </Grid>
