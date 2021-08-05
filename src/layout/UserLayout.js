@@ -57,9 +57,11 @@ export default function UserLayout() {
           </Toolbar>
         </AppBar>
       </div>
-      <Switch>
-        <Route path="/user/movies" exact component={MovieContainer} />
-      </Switch>
+      <div style={{ padding: 20 }}>
+        <Switch>
+          <Route path="/user/movies" exact component={MovieContainer} />
+        </Switch>
+      </div>
     </div>
   );
 }
