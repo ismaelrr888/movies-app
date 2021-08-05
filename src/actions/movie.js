@@ -20,3 +20,7 @@ export const getMovies = () => {
     }
   };
 };
+
+export const changeMovieFilters = (payload) => (dispatch) => {
+  dispatch({ type: types.moviesChangeFilters, payload: payload });
+};

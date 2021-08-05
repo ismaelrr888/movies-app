@@ -9,4 +9,17 @@ const instance = axios.create({
   },
 });
 
+instance.interceptors.request.use(
+  async (config) => {
+    config.headers = {
+      "x-token": localStorage.getItem("token"),
+      "Content-Type": "application/json",
+    };
+    return config;
+  },
+  (error) => {
+    Promise.reject(error);
+  }
+);
+
 export default instance;

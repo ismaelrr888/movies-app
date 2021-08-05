@@ -7,7 +7,7 @@ const initialState = {
     page: 1,
     limit: 10,
     order: "-releaseYear",
-    year: null,
+    year: "",
     type: "",
     title: "",
   },
@@ -24,6 +24,14 @@ export const movieReducer = (state = initialState, action) => {
       return {
         ...state,
         moviesData: action.payload,
+      };
+    case types.moviesChangeFilters:
+      return {
+        ...state,
+        filters: {
+          ...state.filters,
+          [action.payload.name]: action.payload.value,
+        },
       };
 
     default:
