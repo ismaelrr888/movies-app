@@ -1,14 +1,13 @@
-import {
-  Avatar,
-  Button,
-  Grid,
-  Link,
-  TextField,
-  Typography,
-} from "@material-ui/core";
+import { Avatar, Grid, Link, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
-import React from "react";
+import { useFormik } from "formik";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
+import { register } from "../../../actions/auth";
+import ButtonProgress from "../../../components/buuton/ButtonProgress";
+import { registerUserSchema } from "../validations/registerValidation";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -32,6 +31,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RegisterForm() {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const [loading, setLoading] = useState(false);
+
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      email: "",
+      password: "",
+      rpassword: "",
+    },
+    onSubmit: (values, { setErrors }) => {
+      dispatch(register(values, setLoading, history, setErrors));
+    },
+    validationSchema: registerUserSchema,
+  });
 
   return (
     <div className={classes.paper}>
@@ -41,7 +56,7 @@ export default function RegisterForm() {
       <Typography component="h1" variant="h5">
         Sign up
       </Typography>
-      <form className={classes.form} noValidate>
+      <form onSubmit={formik.handleSubmit} className={classes.form} noValidate>
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
@@ -51,7 +66,14 @@ export default function RegisterForm() {
               required
               fullWidth
               label="Name"
-              autoFocus
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={!!(formik.touched.name && formik.errors.name)}
+              helperText={
+                formik.touched.name && formik.errors.name
+                  ? formik.errors.name
+                  : ""
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -59,10 +81,17 @@ export default function RegisterForm() {
               variant="outlined"
               required
               fullWidth
-              id="email"
               label="Email Address"
               name="email"
               autoComplete="email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={!!(formik.touched.email && formik.errors.email)}
+              helperText={
+                formik.touched.email && formik.errors.email
+                  ? formik.errors.email
+                  : ""
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -73,6 +102,14 @@ export default function RegisterForm() {
               name="password"
               label="Password"
               type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={!!(formik.touched.password && formik.errors.password)}
+              helperText={
+                formik.touched.password && formik.errors.password
+                  ? formik.errors.password
+                  : ""
+              }
             />
           </Grid>
           <Grid item xs={12}>
@@ -82,19 +119,28 @@ export default function RegisterForm() {
               fullWidth
               name="rpassword"
               label="Repeate Password"
-              type="rpassword"
+              type="password"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              error={!!(formik.touched.rpassword && formik.errors.rpassword)}
+              helperText={
+                formik.touched.rpassword && formik.errors.rpassword
+                  ? formik.errors.rpassword
+                  : ""
+              }
             />
           </Grid>
         </Grid>
-        <Button
+        <ButtonProgress
           type="submit"
           fullWidth
           variant="contained"
           color="primary"
           className={classes.submit}
-        >
-          Sign Up
-        </Button>
+          label="Sign Up"
+          loading={loading}
+        />
+
         <Grid container justifyContent="flex-end">
           <Grid item>
             <Link href="#" variant="body2">

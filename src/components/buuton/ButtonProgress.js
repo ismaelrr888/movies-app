@@ -1,5 +1,6 @@
 import { Button, CircularProgress } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,11 +18,12 @@ export default function ButtonProgress({ loading, label, ...props }) {
   return (
     <Button {...props} disabled={loading}>
       {label}
-      <CircularProgress
-        hidden={!loading}
-        className={classes.progress}
-        size={24}
-      />
+      {loading && <CircularProgress className={classes.progress} size={24} />}
     </Button>
   );
 }
+
+ButtonProgress.propTypes = {
+  loading: PropTypes.bool.isRequired,
+  label: PropTypes.string.isRequired,
+};
