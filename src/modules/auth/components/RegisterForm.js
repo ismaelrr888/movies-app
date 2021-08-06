@@ -2,8 +2,8 @@ import { Avatar, Grid, Link, TextField, Typography } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useFormik } from "formik";
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link as LinkRDom, useHistory } from "react-router-dom";
 import { register } from "../../../actions/auth";
 import ButtonProgress from "../../../components/buuton/ButtonProgress";
@@ -31,9 +31,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function RegisterForm() {
   const classes = useStyles();
+  const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const history = useHistory();
-  const [loading, setLoading] = useState(false);
 
   const formik = useFormik({
     initialValues: {
@@ -43,7 +43,7 @@ export default function RegisterForm() {
       rpassword: "",
     },
     onSubmit: (values, { setErrors }) => {
-      dispatch(register(values, setLoading, history, setErrors));
+      dispatch(register(values, history, setErrors));
     },
     validationSchema: registerUserSchema,
   });

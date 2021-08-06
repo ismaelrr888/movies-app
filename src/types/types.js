@@ -5,6 +5,7 @@ export const types = {
   authStartRegister: "[auth] Start Register",
   authStartStartTokenRenew: "[auth] Start token renew",
   authLogout: "[auth] Logout",
+  authLoading: "[auth] change loading user",
 
   moviesGet: "[movie] get movies",
   moviesChangeFilters: "[movie] change filters movies",
