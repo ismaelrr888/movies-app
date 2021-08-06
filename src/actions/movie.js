@@ -25,7 +25,7 @@ export const changeMovieFilters = (payload) => (dispatch) => {
   dispatch({ type: types.moviesChangeFilters, payload: payload });
 };
 
-export const clearMovieFilters = (payload) => (dispatch) => {
+export const clearMovieFilters = () => (dispatch) => {
   dispatch({ type: types.moviesClearFilters });
 };
 
