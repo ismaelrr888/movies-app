@@ -23,7 +23,7 @@ export const register = (payload, history, setErrors) => {
   };
 };
 
-export const login = (payload, history, setErrors) => {
+export const login = (payload, setErrors) => {
   return async (dispatch) => {
     try {
       dispatch({ type: types.authLoading, payload: true });
@@ -35,10 +35,10 @@ export const login = (payload, history, setErrors) => {
           type: types.authLogin,
           payload: resp.data,
         });
-        history.push("/login");
+        return resp.data;
       }
     } catch (error) {
-      if (error.response.status === 400) {
+      if (error?.response?.status === 400) {
         const { data } = error.response;
         setErrors({ [data.key]: data.msg });
       }

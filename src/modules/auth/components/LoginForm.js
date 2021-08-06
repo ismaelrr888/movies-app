@@ -4,7 +4,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as LinkRDom, useHistory } from "react-router-dom";
+import { Link as LinkRDom } from "react-router-dom";
 import { login } from "../../../actions/auth";
 import ButtonProgress from "../../../components/buuton/ButtonProgress";
 import { loginUserSchema } from "../validations/loginValidations";
@@ -33,7 +33,6 @@ export default function LoginForm() {
   const classes = useStyles();
   const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const formik = useFormik({
     initialValues: {
@@ -43,7 +42,7 @@ export default function LoginForm() {
       rpassword: "",
     },
     onSubmit: (values, { setErrors }) => {
-      dispatch(login(values, history, setErrors));
+      dispatch(login(values, setErrors));
     },
     validationSchema: loginUserSchema,
   });

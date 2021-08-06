@@ -2,7 +2,6 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "https://mern-movies-test.herokuapp.com/api/",
-  timeout: 1000,
   headers: {
     "x-token": localStorage.getItem("token"),
     "Content-Type": "application/json",

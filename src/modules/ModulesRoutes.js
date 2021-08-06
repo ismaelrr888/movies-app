@@ -14,8 +14,8 @@ import { PrivateRoute } from "../router/PrivateRoute";
 import { PublicRoute } from "../router/PublicRoute";
 
 export const ModulesRoutes = () => {
-  const dispatch = useDispatch();
   const { checking, uid } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (localStorage.getItem("token")) {
