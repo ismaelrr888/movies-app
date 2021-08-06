@@ -31,7 +31,7 @@ export const ModulesRoutes = () => {
 
   return (
     <Router>
-      <div>
+      <div id="public-route">
         <Switch>
           <Route exact path="/" component={() => <Redirect to="/login" />} />
           <PublicRoute

@@ -1,9 +1,13 @@
-import { jest } from "@jest/globals";
 import "@testing-library/jest-dom";
 import configureStore from "redux-mock-store";
 import thunk from "redux-thunk";
+import Swal from "sweetalert2";
 import { login } from "../../actions/auth";
 import { types } from "../../types/types";
+
+jest.mock("sweetalert2", () => ({
+  fire: jest.fn(),
+}));
 
 const middlewares = [thunk];
 const mockStore = configureStore(middlewares);
@@ -37,5 +41,25 @@ describe("test in auth action", () => {
     });
 
     expect(localStorage.setItem).toHaveBeenCalledTimes(2);
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      "token",
+      expect.any(String)
+    );
+  });
+
+  test("should incorrect login", async () => {
+    const setErrors = jest.fn();
+    await store.dispatch(
+      login(
+        { email: "ismael111@gmail.com", password: "Chaos123456*" },
+        setErrors
+      )
+    );
+
+    expect(Swal.fire).toHaveBeenCalledWith(
+      "Error",
+      "Oops something went wrong :(",
+      "error"
+    );
   });
 });
