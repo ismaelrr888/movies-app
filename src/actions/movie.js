@@ -24,3 +24,11 @@ export const getMovies = () => {
 export const changeMovieFilters = (payload) => (dispatch) => {
   dispatch({ type: types.moviesChangeFilters, payload: payload });
 };
+
+export const clearMovieFilters = (payload) => (dispatch) => {
+  dispatch({ type: types.moviesClearFilters });
+};
+
+export const searchMovie = (payload) => (dispatch) => {
+  dispatch({ type: types.moviesSearch, payload: payload });
+};

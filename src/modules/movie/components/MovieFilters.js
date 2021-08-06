@@ -1,4 +1,5 @@
 import {
+  Button,
   Drawer,
   FormControl,
   Grid,
@@ -13,7 +14,7 @@ import { Close } from "@material-ui/icons";
 import FilterListIcon from "@material-ui/icons/FilterList";
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { changeMovieFilters } from "../../../actions/movie";
+import { clearMovieFilters, searchMovie } from "../../../actions/movie";
 
 const useStyles = makeStyles({
   list: {
@@ -36,7 +37,11 @@ export default function MovieFilters() {
   };
 
   const handleChange = (e) => {
-    dispatch(changeMovieFilters(e.target));
+    dispatch(searchMovie(e.target));
+  };
+
+  const handleClearFilter = () => {
+    dispatch(clearMovieFilters());
   };
 
   return (
@@ -82,6 +87,7 @@ export default function MovieFilters() {
             xs
             direction="column"
             alignItems="stretch"
+            spacing={1}
           >
             <Grid item>
               <FormControl variant="outlined" fullWidth>
@@ -110,6 +116,8 @@ export default function MovieFilters() {
             </Grid>
             <Grid item>
               <TextField
+                type="number"
+                InputProps={{ inputProps: { min: 0, max: 2021 } }}
                 helperText={
                   <span>
                     Filter movies by <b>Year</b>
@@ -125,6 +133,15 @@ export default function MovieFilters() {
                 name="year"
                 onChange={handleChange}
               />
+            </Grid>
+            <Grid container justifyContent="flex-end">
+              <Button
+                variant="contained"
+                color="primary"
+                onClick={handleClearFilter}
+              >
+                Clear
+              </Button>
             </Grid>
           </Grid>
         </Grid>

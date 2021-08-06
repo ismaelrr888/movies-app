@@ -10,4 +10,6 @@ export const types = {
   moviesGet: "[movie] get movies",
   moviesChangeFilters: "[movie] change filters movies",
   moviesChangeLoading: "[movie] change loading movies",
+  moviesClearFilters: "[movie] clear filters movies",
+  moviesSearch: "[movie] search movies",
 };
