@@ -60,12 +60,12 @@ export default function RegisterForm() {
         <Grid container spacing={2}>
           <Grid item xs={12}>
             <TextField
-              autoComplete="name"
               name="name"
               variant="outlined"
               required
               fullWidth
               label="Name"
+              value={formik.values.name || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={!!(formik.touched.name && formik.errors.name)}
@@ -83,7 +83,7 @@ export default function RegisterForm() {
               fullWidth
               label="Email Address"
               name="email"
-              autoComplete="email"
+              value={formik.values.email || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={!!(formik.touched.email && formik.errors.email)}
@@ -102,6 +102,7 @@ export default function RegisterForm() {
               name="password"
               label="Password"
               type="password"
+              value={formik.values.password || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={!!(formik.touched.password && formik.errors.password)}
@@ -120,6 +121,7 @@ export default function RegisterForm() {
               name="rpassword"
               label="Repeate Password"
               type="password"
+              value={formik.values.rpassword || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={!!(formik.touched.rpassword && formik.errors.rpassword)}

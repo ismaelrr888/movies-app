@@ -4,7 +4,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useFormik } from "formik";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link as LinkRDom } from "react-router-dom";
+import { Link as LinkRDom, useHistory } from "react-router-dom";
 import { login } from "../../../actions/auth";
 import ButtonProgress from "../../../components/buuton/ButtonProgress";
 import { loginUserSchema } from "../validations/loginValidations";
@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LoginForm() {
   const classes = useStyles();
+  const history = useHistory();
   const { loading } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
 
@@ -42,10 +43,11 @@ export default function LoginForm() {
       rpassword: "",
     },
     onSubmit: (values, { setErrors }) => {
-      dispatch(login(values, setErrors));
+      dispatch(login(values, history, setErrors));
     },
     validationSchema: loginUserSchema,
   });
+
   return (
     <div className={classes.paper}>
       <Avatar className={classes.avatar}>
@@ -63,7 +65,7 @@ export default function LoginForm() {
               fullWidth
               label="Email Address"
               name="email"
-              autoComplete="email"
+              value={formik.values.email || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={!!(formik.touched.email && formik.errors.email)}
@@ -82,6 +84,7 @@ export default function LoginForm() {
               name="password"
               label="Password"
               type="password"
+              value={formik.values.password || ""}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={!!(formik.touched.password && formik.errors.password)}

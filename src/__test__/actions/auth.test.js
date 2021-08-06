@@ -26,7 +26,11 @@ describe("test in auth action", () => {
   test("login action", async () => {
     const setErrors = jest.fn();
     await store.dispatch(
-      login({ email: "ismael1@gmail.com", password: "Chaos123456*" }, setErrors)
+      login(
+        { email: "ismaelrr888@gmail.com", password: "Chaos123456*" },
+        setErrors,
+        []
+      )
     );
     const actions = store.getActions();
 
@@ -34,7 +38,7 @@ describe("test in auth action", () => {
       type: types.authLoading,
       payload: true,
     });
-    expect(actions[1].payload.name).toBe("ismael1");
+    expect(actions[1].payload.name).toBe("ismael");
     expect(actions[2]).toEqual({
       type: types.authLoading,
       payload: false,
@@ -52,6 +56,7 @@ describe("test in auth action", () => {
     await store.dispatch(
       login(
         { email: "ismael111@gmail.com", password: "Chaos123456*" },
+        [],
         setErrors
       )
     );

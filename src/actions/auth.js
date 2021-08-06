@@ -23,7 +23,7 @@ export const register = (payload, history, setErrors) => {
   };
 };
 
-export const login = (payload, setErrors) => {
+export const login = (payload, history, setErrors) => {
   return async (dispatch) => {
     try {
       dispatch({ type: types.authLoading, payload: true });
@@ -35,7 +35,7 @@ export const login = (payload, setErrors) => {
           type: types.authLogin,
           payload: resp.data,
         });
-        return resp.data;
+        history.push("/user/movies");
       }
     } catch (error) {
       if (error?.response?.status === 400) {
