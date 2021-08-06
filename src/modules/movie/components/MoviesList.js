@@ -131,26 +131,6 @@ export default function MoviesList() {
                 <Typography variant="h6">Sorry no movies found :(</Typography>
               </Grid>
             )}
-            <Grid
-              item
-              container
-              justifyContent={"space-between"}
-              alignItems={"center"}
-              direction={"row"}
-            >
-              <Grid item></Grid>
-              <Grid item>
-                <TablePagination
-                  labelRowsPerPage={""}
-                  component={"div"}
-                  rowsPerPageOptions={[10]}
-                  page={moviesData?.total === 0 ? 0 : filters.page - 1}
-                  count={moviesData?.total ? moviesData?.total : 0}
-                  rowsPerPage={10}
-                  onPageChange={handlePageChange}
-                />
-              </Grid>
-            </Grid>
           </>
         )}
       </Grid>
