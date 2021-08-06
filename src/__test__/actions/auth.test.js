@@ -28,8 +28,8 @@ describe("test in auth action", () => {
     await store.dispatch(
       login(
         { email: "ismaelrr888@gmail.com", password: "Chaos123456*" },
-        setErrors,
-        []
+        [],
+        setErrors
       )
     );
     const actions = store.getActions();
