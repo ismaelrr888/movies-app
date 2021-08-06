@@ -16,7 +16,7 @@ export const getMovies = () => {
     } catch (error) {
       Swal.fire("Error", "Oops something went wrong :(", "error");
     } finally {
-      dispatch({ type: types.moviesChangeLoading, payload: true });
+      dispatch({ type: types.moviesChangeLoading, payload: false });
     }
   };
 };
